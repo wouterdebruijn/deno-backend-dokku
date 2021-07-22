@@ -1,6 +1,3 @@
-import { BaseEntity } from "./entities/BaseEntity.ts";
-import { User } from "./entities/User.ts";
-
 export const cleanHex = (hex: string) => {
   // Re-add the dashes and turn the string into lowercase
   const dashed = `${hex.substr(0, 8)}-${hex.substr(8, 4)}-${

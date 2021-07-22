@@ -79,14 +79,20 @@ export class UserRepository implements BaseRepository {
 
     const originalUuid = savedUser.uuid;
     const originalCreated = savedUser.created;
-    
-    const updatedUser = Object.assign(savedUser, object)
+
+    const updatedUser = Object.assign(savedUser, object);
     updatedUser.uuid = originalUuid;
     updatedUser.created = originalCreated;
-    
+
     await this.client.execute(
       "UPDATE users SET username = ?, hash = ?, firstname = ?, lastname = ? WHERE uuid = UNHEX(REPLACE(?, '-', ''))",
-      [updatedUser.username, updatedUser.hash, updatedUser.firstname, updatedUser.lastname, savedUser.uuid]
+      [
+        updatedUser.username,
+        updatedUser.hash,
+        updatedUser.firstname,
+        updatedUser.lastname,
+        savedUser.uuid,
+      ],
     );
     return await this.getObject(savedUser.uuid);
   }
