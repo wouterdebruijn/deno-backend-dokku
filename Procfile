@@ -1,1 +1,1 @@
-web: deno run -A index.ts
+web: deno run -A --unstable index.ts

@@ -33,5 +33,7 @@ export const errorCatcher: Middleware = async ({ response }, next) => {
       adminData: extenedError.adminData,
       description: extenedError.description,
     });
+
+    console.log("STACK:", extenedError.stack)
   });
 };

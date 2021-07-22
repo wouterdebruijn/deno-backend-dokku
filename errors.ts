@@ -74,14 +74,16 @@ export class InternalServerError extends BaseError {
 
 export class PropertyError extends BaseError {
   constructor(
-    type: "missing" | "length" | "email" | "password",
+    type: "missing" | "length" | "email" | "password" | "uuid",
     property: string,
+    description?: string,
   ) {
     if (type === "missing") {
       super(
         `Property ${property} is missing from request`,
         LogLevel.information,
         400,
+        description,
       );
       return;
     }
@@ -90,6 +92,23 @@ export class PropertyError extends BaseError {
       `Property ${property} fails on ${type} validation`,
       LogLevel.information,
       400,
+      description,
     );
+  }
+}
+
+export class TypeError extends BaseError {
+  constructor(type: "string" | "boolean" | "number", property: string) {
+    super(
+      `Property ${property} has to be a ${type}`,
+      LogLevel.information,
+      400,
+    );
+  }
+}
+
+export class ExistenceError extends BaseError {
+  constructor(object: string) {
+    super(`No ${object} matching given uuid.`, LogLevel.information, 404);
   }
 }
